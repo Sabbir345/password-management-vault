@@ -1,8 +1,6 @@
 import DashboardApp from './DashboardApp.vue';
 import VueRouter from 'vue-router';
 
-import Tools from './component/Tools.vue';
-
 window.axios = require('axios');
 
 export default new VueRouter({
@@ -11,11 +9,6 @@ export default new VueRouter({
             path: '/',
             name: 'dashboard',
             component: DashboardApp,
-        },
-        {
-            path: '/tools',
-            name: 'tools',
-            component: Tools
         },
         // {
         // 	path: '/edit/:tradeId',

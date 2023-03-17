@@ -1,30 +1,7 @@
 <template>
   <div>
     <div class="header-2">
-      <nav class="bg-white py-2 md:py-4">
-        <div class="container px-4 mx-auto md:flex md:items-center">
-          <div class="flex justify-between items-center">
-            <a href="#" class="font-bold text-xl text-indigo-600">PM Vault</a>
-            <button
-              class="border border-solid border-gray-600 px-3 py-1 rounded text-gray-600 opacity-50 hover:opacity-75 md:hidden"
-              id="navbar-toggle"
-            >
-              <i class="fas fa-bars"></i>
-            </button>
-          </div>
-
-          <div
-            class="hidden md:flex flex-col md:flex-row md:ml-auto mt-3 md:mt-0"
-            id="navbar-collapse"
-          >
-            <a href="#" class="p-2 lg:px-4 md:mx-2 text-white rounded bg-indigo-600">Home</a>
-            <a
-              href="#"
-              class="p-2 lg:px-4 md:mx-2 text-gray-600 rounded hover:bg-gray-200 hover:text-gray-700 transition-colors duration-300"
-            >Tools</a>
-          </div>
-        </div>
-      </nav>
+      <Nav />
     </div>
     <div class="bg-indigo-100 overflow-hidden sticky top-0">
       <div class="max-w-4xl px-4 mx-auto">
@@ -38,7 +15,7 @@
               <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
                 <h4 class="bg-gray-200 py-4 text-center font-bold">VAULT</h4>
                 <ul class="space-y-2 pt-3">
-                  <li>
+                  <li @click="setMenu('home')">
                     <a
                       href="#"
                       class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -103,7 +80,7 @@
                       </li>
                     </ul>
                   </li>
-                  <li>
+                  <li @click="setMenu('tools')">
                     <a
                       href="#"
                       class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -154,190 +131,59 @@
                       href="#"
                       class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                     >
-                      
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" viewBox="0 0 16 16">
-  <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-  <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
-</svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        class="bi bi-upload w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"
+                        />
+                        <path
+                          d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"
+                        />
+                      </svg>
                       <span class="ml-3">Import</span>
                     </a>
                   </li>
-                  <!-- <li>
-                    <a
-                      href="#"
-                      class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z" />
-                        <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z" />
-                      </svg>
-                      <span class="ml-3">My vault</span>
-                    </a>
-                  </li>
                   <li>
                     <a
                       href="#"
                       class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                     >
                       <svg
-                        aria-hidden="true"
-                        class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        class="bi bi-box-arrow-right w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                        viewBox="0 0 16 16"
                       >
                         <path
                           fill-rule="evenodd"
-                          d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                          clip-rule="evenodd"
+                          d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"
+                        />
+                        <path
+                          fill-rule="evenodd"
+                          d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"
                         />
                       </svg>
-                      <span class="flex-1 ml-3 whitespace-nowrap">Users</span>
+                      <span class="flex-1 ml-3 whitespace-nowrap">Logout</span>
                     </a>
                   </li>
-                  <li>
-                    <a
-                      href="#"
-                      class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span class="flex-1 ml-3 whitespace-nowrap">Products</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span class="flex-1 ml-3 whitespace-nowrap">Sign In</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span class="flex-1 ml-3 whitespace-nowrap">Sign Up</span>
-                    </a>
-                  </li>-->
                 </ul>
               </div>
             </aside>
           </div>
 
           <div class="p-4 top-0">
-            <div class="w-full h-screen bg-gray-100">
-              <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="flex flex-col">
-                  <div class="mb-4">
-                    <!-- <h1 class="text-3xl font-bolder leading-tight text-gray-900">Pages</h1> -->
-                  </div>
-                  <div class="-mb-2 py-4 flex flex-wrap flex-grow justify-between">
-                    <div class="flex items-center py-2">
-                      <input
-                        class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                        id="inline-searcg"
-                        type="text"
-                        placeholder="Search"
-                      />
-                    </div>
-                    <div class="flex items-center py-2">
-                      <a
-                        href
-                        class="inline-block px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline"
-                      >New Item</a>
-                    </div>
-                  </div>
-                  <div class="-my-2 py-2 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-                    <div
-                      class="align-middle inline-block w-full shadow overflow-x-auto sm:rounded-lg border-b border-gray-200"
-                    >
-                      <table class="min-w-full">
-                        <!-- HEAD start -->
-                        <thead>
-                          <tr
-                            class="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider"
-                          >
-                            <th class="px-6 py-3 text-left font-medium">Name</th>
-                            <th class="px-6 py-3 text-left font-medium">Author</th>
-                            <th class="px-6 py-3 text-left font-medium">Slug</th>
-                            <th class="px-6 py-3 text-left font-medium">Status</th>
-                            <th class="px-6 py-3 text-left font-medium">Created</th>
-                          </tr>
-                        </thead>
-                        <!-- HEAD end -->
-                        <!-- BODY start -->
-                        <tbody class="bg-white">
-                          <tr>
-                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                              <div class="text-sm leading-5 text-gray-900">Bro</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                              <div class="text-sm leading-5 text-gray-900">Sabbir Ahmad</div>
-                            </td>
-
-                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                              <div class="text-sm leading-5 text-gray-900">fffs</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                              <span
-                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
-                              >published</span>
-                            </td>
-                            <td
-                              class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500"
-                            >dscdscsdcs</td>
-                          </tr>
-                        </tbody>
-                        <!-- BODY end -->
-                      </table>
-                    </div>
-                  </div>
-                </div>
+            <div class="w-[39rem] h-screen bg-gray-100">
+              <div class="mx-auto sm:px-6 lg:px-8">
+                <home v-if="activeMenu === 'home'" />
+                <tools v-if="activeMenu === 'tools'" />
               </div>
             </div>
           </div>
@@ -352,17 +198,28 @@
 </template>
 
 <script>
+import Home from "./component/Home";
+import Nav from "./component/Nav";
+import Tools from "./component/Tools";
 import CreateItemModal from "./component/CreateItemModal";
 import ManageFolder from "./component/ManageFolder";
 export default {
   components: {
+    Home,
+    Nav,
+    Tools,
     CreateItemModal,
     ManageFolder
   },
   data() {
     return {
-      message: "Password Management!"
+      activeMenu: "home"
     };
+  },
+  methods: {
+    setMenu(layout) {
+      this.activeMenu = layout;
+    }
   }
 };
 </script>
