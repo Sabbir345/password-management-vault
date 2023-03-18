@@ -33,6 +33,7 @@ Route::group([
     // Create Item
     Route::post('/item' , [ItemController::class, 'store'])->name('item.store');
     Route::get('/get-items' , [ItemController::class, 'getItems']);
+    Route::get('/items-export',[ItemController::class, 'itemExport']);
 });
 
 require __DIR__.'/auth.php';

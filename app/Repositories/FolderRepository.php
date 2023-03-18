@@ -23,7 +23,7 @@ class FolderRepository
 
 	public function getAllFolder($userId)
 	{
-		return Folder::where('user_id',$userId)->get();
+		return Folder::where('user_id',$userId)->where('is_deleted',0)->get();
 	}
 }
 

@@ -75,7 +75,21 @@
                       <li v-for="(data, index) in folders" :key="index">
                         <a
                           class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                        >{{ data.name }}</a>
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            class="bi bi-folder pr-2 w-6 h-6"
+                            viewBox="0 0 16 16"
+                          >
+                            <path
+                              d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4H2.19zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707z"
+                            />
+                          </svg>
+                          {{ data.name }}
+                        </a>
                       </li>
                     </ul>
                   </li>
@@ -181,8 +195,13 @@
           <div class="p-4 top-0">
             <div class="w-[39rem] h-screen bg-gray-100">
               <div class="mx-auto sm:px-6 lg:px-8">
-                <home v-if="activeMenu === 'home'" />
-                <tools v-if="activeMenu === 'tools'" />
+                <template v-if="activeMenu === 'home'">
+                  <home :items="items" @getNewItem="handleNewItems" />
+                </template>
+
+                <template v-if="activeMenu === 'tools'">
+                  <tools />
+                </template>
               </div>
             </div>
           </div>
@@ -215,6 +234,8 @@ export default {
       activeMenu: "home",
       isFolderMenuOpen: false,
       folders: [],
+      items: [],
+      search: "",
       folderItem: {
         name: ""
       },
@@ -234,18 +255,18 @@ export default {
     };
   },
   mounted() {
-    this.getFolders();
-    this.getItems();
+    this.getItemFolder();
   },
   methods: {
     setMenu(layout) {
       this.activeMenu = layout;
+      this.getItemFolder();
     },
     closeModal(className) {
+      console.log(className);
       const modal = document.querySelector(`.${className}`);
       modal.classList.add("hidden");
-      this.getFolders();
-      this.getItems()
+      this.getItemFolder();
     },
     getFolders() {
       axios
@@ -267,8 +288,14 @@ export default {
         });
     },
     getItems() {
+      let url = `/get-items`;
+
+      if (this.search.length) {
+        url += `?search=${this.search}`;
+      }
+
       axios
-        .get("/get-items")
+        .get(url)
         .then(response => {
           this.items = response.data.items;
         })
@@ -284,6 +311,14 @@ export default {
             this.$message.error(error.response.data.message);
           }
         });
+    },
+    handleNewItems(content) {
+      this.search = content;
+      this.getItems();
+    },
+    getItemFolder() {
+      this.getFolders();
+      this.getItems();
     }
   }
 };

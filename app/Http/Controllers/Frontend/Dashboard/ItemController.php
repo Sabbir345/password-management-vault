@@ -48,8 +48,9 @@ class ItemController extends Controller
 
 	public function getItems()
 	{
+		$searchKey = $this->request->search;
 		try {
-            $response = $this->repository->getAllItems(Auth::user()->id);
+            $response = $this->repository->getAllItems($searchKey,Auth::user()->id);
             $message = "success";
     		$status = true;
         } catch (\Exception $exception) {
@@ -61,8 +62,13 @@ class ItemController extends Controller
             return response()->json([
                 'status'  => $status,
                 'message' => $message,
-                'folders' => $response
+                'items' => $response
           ]);
         }
+	}
+
+	public function itemExport()
+	{
+		
 	}
 }

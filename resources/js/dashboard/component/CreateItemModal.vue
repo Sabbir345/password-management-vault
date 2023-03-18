@@ -223,6 +223,7 @@ export default {
       axios
         .post("/item", this.myItem)
         .then(response => {
+          this.myItem = {}
           this.$message.success(response.data.message);
           this.$emit("closeItemModal",'createItemModal');
         })

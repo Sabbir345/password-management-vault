@@ -28,8 +28,18 @@ class ItemRepository
         return $item;
 	}
 
-	public function getAllItems($userId)
+	public function getAllItems($searchKey, $userId)
 	{
-		return Item::where('user_id',$userId)->get();
+		return Item::where('user_id',$userId)
+		            ->where('is_deleted',0)
+					->when($searchKey, function($q) use ($searchKey, $userId) {
+	                    $q->where('user_id',$userId)
+	                      ->where('is_deleted',0)
+	                      ->where(function($query) use ($searchKey) {
+                    		$query->where('name', 'like', "%$searchKey%")
+                          		  ->orWhere('login_username', 'like', "%$searchKey%");
+                		});
+	                })
+					->get();
 	}
 }
