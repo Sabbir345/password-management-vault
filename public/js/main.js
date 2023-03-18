@@ -1,19 +1,39 @@
 // ===== create new modal
-var createModal = document.querySelector('.createFolderModal')
+var manageFolderModal = document.querySelector('.createFolderModal')
 
 // openFolderModal for create new
 function openFolderModal() {
-  createModal.classList.remove('hidden')
+  manageFolderModal.classList.remove('hidden')
 }
 openFolderModal()
 // closeModal for create new
-function closeModal() {
-  createModal.classList.add('hidden')
+function closeFolderModal() {
+  manageFolderModal.classList.add('hidden')
 }
-closeModal()
+closeFolderModal()
 
 window.onclick = function (event) {
-  if (event.target === createModal) {
-    createModal.classList.add('hidden')
+  if (event.target === manageFolderModal) {
+    manageFolderModal.classList.add('hidden')
+  }
+}
+
+// ===== create new item modal
+var manageItemModal = document.querySelector('.createItemModal')
+
+// openItemModal for create new
+function openItemModal() {
+  manageItemModal.classList.remove('hidden')
+}
+openItemModal()
+// closeItemModal for create new
+function closeItemModal() {
+  manageItemModal.classList.add('hidden')
+}
+closeItemModal()
+
+window.onclick = function (event) {
+  if (event.target === manageItemModal) {
+    manageItemModal.classList.add('hidden')
   }
 }

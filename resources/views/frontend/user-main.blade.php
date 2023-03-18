@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Build A Password Management Vault</title>
+    <title>Password Management Vault</title>
     @include('frontend.layouts.meta')
     @include('frontend.layouts.styles')
     @stack('styles')

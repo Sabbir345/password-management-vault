@@ -10,11 +10,5 @@ export default new VueRouter({
             name: 'dashboard',
             component: DashboardApp,
         },
-        // {
-        // 	path: '/edit/:tradeId',
-        // 	name: 'dashboard.edit',
-        // 	component: Edit
-        // },
-       
     ]
 });

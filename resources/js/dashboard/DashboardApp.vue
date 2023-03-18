@@ -38,7 +38,7 @@
                       type="button"
                       class="flex items-center justify-between w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                     >
-                      <span class="flex w-90">
+                      <span class="flex w-90" @click="isFolderMenuOpen = !isFolderMenuOpen">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"
@@ -54,7 +54,7 @@
                         <span
                           class="flex-1 ml-3 text-left whitespace-nowrap"
                           sidebar-toggle-item
-                        >Folder</span>
+                        >Folders</span>
                       </span>
                       <span onclick="openFolderModal()" class="text-end">
                         <svg
@@ -71,12 +71,11 @@
                         </svg>
                       </span>
                     </button>
-                    <ul id="dropdown-example" class="hidden py-2 space-y-2">
-                      <li>
+                    <ul v-show="isFolderMenuOpen" id="dropdown-example" class="py-2 space-y-2">
+                      <li v-for="(data, index) in folders" :key="index">
                         <a
-                          href="#"
                           class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                        >Products</a>
+                        >{{ data.name }}</a>
                       </li>
                     </ul>
                   </li>
@@ -190,8 +189,8 @@
         </div>
 
         <!-- Main modal -->
-        <!-- <create-item-modal /> -->
-        <!-- <manage-folder /> -->
+        <create-item-modal :item="loginItem" :folders="folders" @closeItemModal="closeModal" />
+        <manage-folder :item="folderItem" @closeFolderModal="closeModal" />
       </div>
     </div>
   </div>
@@ -213,12 +212,78 @@ export default {
   },
   data() {
     return {
-      activeMenu: "home"
+      activeMenu: "home",
+      isFolderMenuOpen: false,
+      folders: [],
+      folderItem: {
+        name: ""
+      },
+      loginItem: {
+        login_type: 1,
+        folder_id: "",
+        login_password: "",
+        login_username: "",
+        name: "",
+        notes: "",
+        uris: [
+          {
+            uri: ""
+          }
+        ]
+      }
     };
+  },
+  mounted() {
+    this.getFolders();
+    this.getItems();
   },
   methods: {
     setMenu(layout) {
       this.activeMenu = layout;
+    },
+    closeModal(className) {
+      const modal = document.querySelector(`.${className}`);
+      modal.classList.add("hidden");
+      this.getFolders();
+      this.getItems()
+    },
+    getFolders() {
+      axios
+        .get("/get-folder")
+        .then(response => {
+          this.folders = response.data.folders;
+        })
+        .catch(error => {
+          if (error.response.data.code === 422) {
+            // eslint-disable-next-line no-unused-vars
+            for (const [key, value] of Object.entries(
+              error.response.data.data
+            )) {
+              this.$message.error(value);
+            }
+          } else {
+            this.$message.error(error.response.data.message);
+          }
+        });
+    },
+    getItems() {
+      axios
+        .get("/get-items")
+        .then(response => {
+          this.items = response.data.items;
+        })
+        .catch(error => {
+          if (error.response.data.code === 422) {
+            // eslint-disable-next-line no-unused-vars
+            for (const [key, value] of Object.entries(
+              error.response.data.data
+            )) {
+              this.$message.error(value);
+            }
+          } else {
+            this.$message.error(error.response.data.message);
+          }
+        });
     }
   }
 };

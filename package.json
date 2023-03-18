@@ -23,6 +23,7 @@
     },
     "dependencies": {
         "vue": "^2.7.14",
-        "vue-router": "^3.5.3"
+        "vue-router": "^3.5.3",
+        "ant-design-vue": "^1.7.4"
     }
 }

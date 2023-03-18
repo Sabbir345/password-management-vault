@@ -15,13 +15,14 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('login_type');
             $table->string('name');
             $table->unsignedBigInteger('folder_id')->nullable();
             $table->foreign('folder_id')->references('id')->on('folders');
-            $table->string('login_username');
-            $table->string('login_password');
-            $table->json('uri');
+            $table->string('login_username')->nullable();
+            $table->string('login_password')->nullable();
+            $table->json('uri')->nullable();
             $table->text('notes')->nullable();
             $table->timestamps();
         });
