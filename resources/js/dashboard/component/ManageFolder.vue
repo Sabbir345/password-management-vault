@@ -2,7 +2,7 @@
   <div
     id="small-modal"
     tabindex="-1"
-    class="createModal fixed z-[9999] top-0 left-0 w-full h-full pt-8 lg:py-6 4xl:py-10 flex items-end lg:items-start justify-center bg-black bg-opacity-90 lg:overflow-y-auto"
+    class="createFolderModal fixed z-[9999] top-0 left-0 w-full h-full pt-8 lg:py-6 4xl:py-10 flex items-end lg:items-start justify-center bg-black bg-opacity-90 lg:overflow-y-auto"
   >
     <div class="relative w-full h-full max-w-md md:h-auto">
       <!-- Modal content -->
@@ -69,3 +69,9 @@
     </div>
   </div>
 </template>
+<script>
+import '../../../../public/js/main.js';
+export default {
+  
+}
+</script>

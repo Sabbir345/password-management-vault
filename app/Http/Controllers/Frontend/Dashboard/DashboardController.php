@@ -14,4 +14,19 @@ class DashboardController extends Controller
 	{
 		return view('frontend.dashboard.index');
 	}
+
+	public function folderAdd()
+	{
+		
+	}
+
+	public function folderUpdate()
+	{
+		
+	}
+
+	public function folderDelete()
+	{
+		
+	}
 }

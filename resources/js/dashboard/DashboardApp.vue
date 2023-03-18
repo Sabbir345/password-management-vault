@@ -56,7 +56,7 @@
                           sidebar-toggle-item
                         >Folder</span>
                       </span>
-                      <span class="text-end">
+                      <span onclick="openFolderModal()" class="text-end">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"

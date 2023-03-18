@@ -21,9 +21,12 @@ Route::get('/', function () {
 Route::group([
         'middleware' => 'auth'
     ], function () {
-
+    
     // include_once 'User/dashboard.php';
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/folder-add', [DashboardController::class, 'folderAdd'])->name('folder.add');
+    Route::post('/folder-update', [DashboardController::class, 'folderUpdate'])->name('folder.update');
+    Route::delete('/folder-delete', [DashboardController::class, 'folderDelete'])->name('folder.delete');
 });
 
 require __DIR__.'/auth.php';
