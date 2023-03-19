@@ -28,7 +28,7 @@ class ItemRepository
         return $item;
 	}
 
-	public function getAllItems($searchKey, $userId)
+	public function getAllItems($searchKey,$perPage, $userId)
 	{
 		return Item::where('user_id',$userId)
 		            ->where('is_deleted',0)
@@ -40,6 +40,21 @@ class ItemRepository
                           		  ->orWhere('login_username', 'like', "%$searchKey%");
                 		});
 	                })
-					->get();
+	                ->orderBy('id','desc')
+					->paginate($perPage);
+	}
+
+	public function getExportItems($userId)
+	{
+		$items = Item::where('user_id',$userId)->where('is_deleted',0)->get();
+	}
+
+	public function manageFolder($name)
+	{
+		$folder = new Folder();
+		$folder->user_id = Auth::user()->id; 
+		$folder->name = $name;
+		$folder->save();
+		return $folder->id;
 	}
 }

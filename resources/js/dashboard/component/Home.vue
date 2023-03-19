@@ -52,7 +52,7 @@
             <!-- BODY end -->
           </table>
 
-          <div v-if="!items.length"> 
+          <div v-if="!items.length">
             <p class="p-5 text-center">No records found!</p>
           </div>
         </div>
@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import { emit } from 'process';
+import { emit } from "process";
 
 export default {
   props: {
@@ -74,12 +74,12 @@ export default {
   },
   data() {
     return {
-      search: '',
+      search: ""
     };
   },
-  watch:{
-    'search'(){
-      this.$emit('getNewItem', this.search)
+  watch: {
+    search() {
+      this.$emit("getNewItem", this.search);
     }
   },
   methods: {}

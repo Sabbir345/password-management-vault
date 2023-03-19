@@ -34,6 +34,7 @@ Route::group([
     Route::post('/item' , [ItemController::class, 'store'])->name('item.store');
     Route::get('/get-items' , [ItemController::class, 'getItems']);
     Route::get('/items-export',[ItemController::class, 'itemExport']);
+    Route::post('/items-import',[ItemController::class, 'itemImport']);
 });
 
 require __DIR__.'/auth.php';

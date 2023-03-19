@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Http\Controllers\Controller;
 use App\Repositories\ItemRepository;
+use App\Import\ItemImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ItemController extends Controller
 {
@@ -50,8 +52,9 @@ class ItemController extends Controller
 	public function getItems()
 	{
 		$searchKey = $this->request->search;
+        $perPage = $this->request->per_page;
 		try {
-            $response = $this->repository->getAllItems($searchKey,Auth::user()->id);
+            $response = $this->repository->getAllItems($searchKey,$perPage,Auth::user()->id);
             $message = "success";
     		$status = true;
         } catch (\Exception $exception) {
@@ -70,14 +73,26 @@ class ItemController extends Controller
 
 	public function itemExport()
 	{
-		// try {
-        //     $response = $this->repository->getAllItems($searchKey = '',Auth::user()->id);
-        //     $message = "success";
-        //     $status = true;
-        // } catch (\Exception $exception) {
-        //     $status = false;
-        //     $message = $this->res_message;
-        //     $response = [];
-        // }
+		try {
+            $response = $this->repository->getExportItems(Auth::user()->id);
+            $message = "success";
+            $status = true;
+        } catch (\Exception $exception) {
+            $status = false;
+            $message = $this->res_message;
+            $response = [];
+        }
 	}
+
+    public function itemImport()
+    {
+        Excel::import(new ItemImport,$this->request->file('file'));
+
+        if($this->request->wantsJson()) {
+            return response()->json([
+                'status'  => true,
+                'message' => "Successfully file imported",
+          ]);
+        }
+    }
 }

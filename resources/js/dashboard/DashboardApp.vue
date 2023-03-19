@@ -141,8 +141,8 @@
                   </li>
                   <li>
                     <a
-                      href="#"
                       class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                      onclick="openItemImportModal()"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -197,6 +197,21 @@
               <div class="mx-auto sm:px-6 lg:px-8">
                 <template v-if="activeMenu === 'home'">
                   <home :items="items" @getNewItem="handleNewItems" />
+
+                  <a-pagination
+                    v-if="pagination.last_page > 1"
+                    :total="pagination.total"
+                    :show-total="
+                            total => `Total ${pagination.total} items`
+                        "
+                    :size="String(pagination.total)"
+                    :default-current="1"
+                    :defaultPageSize="pagination.to"
+                    v-model="current"
+                    @change="onChange"
+                    class="text-center"
+                    style="padding-top: 15px;"
+                  />
                 </template>
 
                 <template v-if="activeMenu === 'tools'">
@@ -210,6 +225,7 @@
         <!-- Main modal -->
         <create-item-modal :item="loginItem" :folders="folders" @closeItemModal="closeModal" />
         <manage-folder :item="folderItem" @closeFolderModal="closeModal" />
+        <item-import @closeItemImportModal="closeModal" />
       </div>
     </div>
   </div>
@@ -221,18 +237,22 @@ import Nav from "./component/Nav";
 import Tools from "./component/Tools";
 import CreateItemModal from "./component/CreateItemModal";
 import ManageFolder from "./component/ManageFolder";
+import ItemImport from "./component/ItemImport";
+
 export default {
   components: {
     Home,
     Nav,
     Tools,
     CreateItemModal,
-    ManageFolder
+    ManageFolder,
+    ItemImport
   },
   data() {
     return {
       activeMenu: "home",
       isFolderMenuOpen: false,
+      isOpenFileImportModal: false,
       folders: [],
       items: [],
       search: "",
@@ -251,7 +271,12 @@ export default {
             uri: ""
           }
         ]
-      }
+      },
+      pagination: {},
+      current: 1,
+      pageSize: "",
+      perPage: 12,
+      totalData: 0
     };
   },
   mounted() {
@@ -263,7 +288,6 @@ export default {
       this.getItemFolder();
     },
     closeModal(className) {
-      console.log(className);
       const modal = document.querySelector(`.${className}`);
       modal.classList.add("hidden");
       this.getItemFolder();
@@ -287,17 +311,26 @@ export default {
           }
         });
     },
-    getItems() {
-      let url = `/get-items`;
+    getItems(nextPage = null) {
+      let url = `/get-items?per_page=${this.perPage}`;
+
+      if (nextPage) {
+        url += `&page=${nextPage}`;
+      }
 
       if (this.search.length) {
-        url += `?search=${this.search}`;
+        url += `&search=${this.search}`;
       }
 
       axios
         .get(url)
         .then(response => {
-          this.items = response.data.items;
+          // console.log()
+          this.items = response.data.items.data;
+          this.pagination = response.data.items;
+          this.pageSize =
+            parseInt(this.pagination.total) / parseInt(this.pagination.to);
+          this.$forceUpdate();
         })
         .catch(error => {
           if (error.response.data.code === 422) {
@@ -319,6 +352,14 @@ export default {
     getItemFolder() {
       this.getFolders();
       this.getItems();
+    },
+    onChange(next) {
+      this.current = next;
+      this.indexValueForPagination = 0;
+      if (next == 1) return this.getItems(next);
+      this.indexValueForPagination =
+        (next + this.indexValueForPagination) * this.perPage - this.perPage;
+      this.getItems(next);
     }
   }
 };

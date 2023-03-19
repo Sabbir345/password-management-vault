@@ -37,3 +37,22 @@ window.onclick = function (event) {
     manageItemModal.classList.add('hidden')
   }
 }
+// ===== create new item modal
+var manageItemImportModal = document.querySelector('.itemImport')
+
+// openItemModal for create new
+function openItemImportModal() {
+  manageItemImportModal.classList.remove('hidden')
+}
+openItemImportModal()
+// closeItemModal for create new
+function closeItemImportModal() {
+  manageItemImportModal.classList.add('hidden')
+}
+closeItemImportModal()
+
+window.onclick = function (event) {
+  if (event.target === manageItemImportModal) {
+    manageItemImportModal.classList.add('hidden')
+  }
+}

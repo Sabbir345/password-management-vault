@@ -9,7 +9,7 @@ class Item extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['login_type', 'name', 'folder_id', 'login_username', 'login_password', 'uri', 'notes'];
+    protected $fillable = ['user_id','login_type', 'name', 'folder_id', 'login_username', 'login_password', 'uri', 'notes'];
 
     public function folder()
     {
