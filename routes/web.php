@@ -28,7 +28,7 @@ Route::group([
     Route::get('/get-folder', [DashboardController::class, 'getFolders']);
     Route::post('/folder', [DashboardController::class, 'store'])->name('folder.store');
     // Route::post('/folder-update', [DashboardController::class, 'folderUpdate'])->name('folder.update');
-    Route::delete('/folder-delete', [DashboardController::class, 'folderDelete'])->name('folder.delete');
+    // Route::delete('/folder-delete', [DashboardController::class, 'folderDelete'])->name('folder.delete');
 
     // Create Item
     Route::post('/item' , [ItemController::class, 'store'])->name('item.store');

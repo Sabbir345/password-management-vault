@@ -15,6 +15,7 @@ class ItemController extends Controller
 {
 
 	public $request = null;
+    public $res_message = "Internal server error";
 	protected $repository;
 
     public function __construct(Request $request,ItemRepository $repository)
@@ -35,7 +36,7 @@ class ItemController extends Controller
             $message = "Successfully item created";
         } catch (\Exception $exception) {
         	$status = false;
-            $message = "Internal server error";
+            $message = $this->res_message;
         }
         
         if($this->request->wantsJson()) {
@@ -55,7 +56,7 @@ class ItemController extends Controller
     		$status = true;
         } catch (\Exception $exception) {
         	$status = false;
-            $message = "Internal server error";
+            $message = $this->res_message;
             $response = [];
         }
 		if($this->request->wantsJson()) {
@@ -69,6 +70,14 @@ class ItemController extends Controller
 
 	public function itemExport()
 	{
-		
+		// try {
+        //     $response = $this->repository->getAllItems($searchKey = '',Auth::user()->id);
+        //     $message = "success";
+        //     $status = true;
+        // } catch (\Exception $exception) {
+        //     $status = false;
+        //     $message = $this->res_message;
+        //     $response = [];
+        // }
 	}
 }
