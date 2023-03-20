@@ -27,6 +27,7 @@ Route::group([
 
     include_once 'frontend/folder.php';
     include_once 'frontend/items.php';
+    include_once 'frontend/category.php';
 });
 
 require __DIR__.'/auth.php';

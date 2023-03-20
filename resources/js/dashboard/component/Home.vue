@@ -31,6 +31,7 @@
                 <th class="px-6 py-3 text-left font-medium">Type</th>
                 <th class="px-6 py-3 text-left font-medium">Name</th>
                 <th class="px-6 py-3 text-left font-medium">Username</th>
+                <th class="px-6 py-3 text-left font-medium">Folder</th>
               </tr>
             </thead>
             <!-- HEAD end -->
@@ -46,6 +47,9 @@
 
                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                   <div class="text-sm leading-5 text-gray-900">{{ item.login_username }}</div>
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                  <div v-if="item.folder" class="text-sm leading-5 text-gray-900">{{ item.folder.name }}</div>
                 </td>
               </tr>
             </tbody>

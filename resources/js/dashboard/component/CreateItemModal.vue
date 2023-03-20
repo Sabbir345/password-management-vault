@@ -72,7 +72,11 @@
                   class="input-field w-full appearance-none"
                 >
                   <option value>Select</option>
-                  <option v-for="(item,index) in folders" :value="item.id" :key="index">{{ item.name }}</option>
+                  <option
+                    v-for="(item,index) in folders"
+                    :value="item.id"
+                    :key="index"
+                  >{{ item.name }}</option>
                 </select>
                 <span class="select-arrow"></span>
               </div>
@@ -103,7 +107,11 @@
                 />
               </div>
             </div>
-            <div v-for="(item , index) in myItem.uris" :key="index" class="flex flex-wrap -mx-3 mb-6">
+            <div
+              v-for="(item , index) in myItem.uris"
+              :key="index"
+              class="flex flex-wrap -mx-3 mb-6"
+            >
               <div class="w-full md:w-1/2 px-3">
                 <label
                   class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -154,6 +162,29 @@
                 </div>
               </div>
             </div>
+            <div class="flex flex-wrap mb-4">
+              <label
+                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                for="username"
+              >Select Category</label>
+              <a-select
+                mode="tags"
+                label-in-value
+                :value="selectedCategory"
+                placeholder="Select categories"
+                :show-arrow="false"
+                style="width: 100%"
+                :filter-option="false"
+                :not-found-content="fetching ? undefined : null"
+                :size="'large'"
+                @change="handleChange"
+              >
+                <a-spin v-if="fetching" slot="notFoundContent" size="small" />
+                <a-select-option v-for="item in categories" :key="item.id.toString()">
+                  <p class="text-black">{{ item.name }}</p>
+                </a-select-option>
+              </a-select>
+            </div>
             <div class="flex flex-wrap -mx-3 mb-2">
               <div class="w-full px-3 mb-6 md:mb-0">
                 <label
@@ -199,6 +230,11 @@ export default {
       default: Object,
       required: true
     },
+    categories: {
+      type: Array,
+      default: Array,
+      required: true
+    },
     folders: {
       type: Array,
       default: Array,
@@ -210,9 +246,11 @@ export default {
       myItem: {
         ...this.item
       },
-      singleUri:{
-        uri: '',
-      }
+      singleUri: {
+        uri: ""
+      },
+      selectedCategory: [],
+      fetching: false
     };
   },
   methods: {
@@ -220,12 +258,17 @@ export default {
       if (this.myItem.name === "") {
         return "Item name is required";
       }
+      const categoryIds = [];
+      this.selectedCategory.map(item => {
+        return categoryIds.push(item.key);
+      });
+      this.myItem.categories = categoryIds;
       axios
         .post("/item", this.myItem)
         .then(response => {
-          this.myItem = {}
+          this.handleFormClear();
           this.$message.success(response.data.message);
-          this.$emit("closeItemModal",'createItemModal');
+          this.$emit("closeItemModal", "createItemModal");
         })
         .catch(error => {
           if (error.response.data.code === 422) {
@@ -240,12 +283,25 @@ export default {
           }
         });
     },
-    addUri(){
-      this.myItem.uris.push(structuredClone(this.singleUri))
+    addUri() {
+      this.myItem.uris.push(structuredClone(this.singleUri));
     },
-    handleUriRemove(index){
+    handleUriRemove(index) {
       this.myItem.uris.splice(index, 1);
       this.$forceUpdate();
+    },
+    handleFormClear() {
+      this.myItem.login_type = 1;
+      this.myItem.name = "";
+      this.myItem.folder_id = "";
+      this.myItem.login_username = "";
+      this.myItem.login_password = "";
+      this.myItem.uris.uri = "";
+      this.myItem.notes = "";
+      this.selectedCategory = [];
+    },
+    handleChange(value) {
+      this.selectedCategory = value;
     }
   }
 };

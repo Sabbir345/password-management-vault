@@ -2,7 +2,7 @@
 # Password Management Vault
 ## Overview
 
-The Password Management Vault is a web-based application built using Laravel and Vue.js that provides a secure and convenient way to store and manage passwords. The application allows users to create folders to organize their passwords, search for data by name, username and folder. Generate strong passwords, and import and export password data.
+The Password Management Vault is a web-based application built using Laravel and Vue.js that provides a secure and convenient way to store and manage passwords. The application allows users to create categories, folders to organize their passwords, search for data by name, username and folder. Generate strong passwords, and import and export password data.
 
 ## Tech Stack
 The Password Management Vault is built using the following technologies:
@@ -10,7 +10,7 @@ The Password Management Vault is built using the following technologies:
 - Laravel version 8.75
 - Vue.js version ^2.7.14
 - Maatwebsite/Excel 3.1 package for import and export functionality
-- Ant Design for pagination and design work
+- Ant Design for pagination, multiselect and design work
 - Laravel/Breeze for authentication
 - Tailwind CSS for design work
 
@@ -47,6 +47,8 @@ The Password Generator is a tool that allows users to generate strong passwords 
 #### Import and Export
 Users can import and export password data to and from CSV files using the Maatwebsite/Excel package.
 
+#### Category Management
+Users can create category to organize their password data. They can view categories on the Category menu dropdown.
 
 ## Usage
 To use the Password Management Vault, users must first create an account and log in using Laravel/Breeze authentication. Once logged in, users can create folders to organize their passwords. Passwords can be added to folders manually or imported from a CSV file using the Maatwebsite/Excel package. Users can also search for passwords by name.

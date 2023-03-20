@@ -75,3 +75,23 @@ window.onclick = function (event) {
     manageItemExportModal.classList.add('hidden')
   }
 }
+
+// ===== create new item modal
+const manageCategoryModal = document.querySelector('.createCategory')
+
+// openItemModal for create new
+function openCategoryModal() {
+  manageCategoryModal.classList.remove('hidden')
+}
+openCategoryModal()
+// closeItemModal for create new
+function closeCategoryModal() {
+  manageCategoryModal.classList.add('hidden')
+}
+closeCategoryModal()
+
+window.onclick = function (event) {
+  if (event.target === manageCategoryModal) {
+    manageCategoryModal.classList.add('hidden')
+  }
+}

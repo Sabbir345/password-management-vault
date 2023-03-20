@@ -21,6 +21,7 @@ class ItemRepository
         $item->login_username = $data['login_username'];
         $item->login_password = $data['login_password'];
         $item->uri = json_encode($data['uris']);
+        $item->categories = json_encode($data['categories']);
         $item->notes = $data['notes'];
         $item->user_id = $userId;
         $item->save();
@@ -47,6 +48,9 @@ class ItemRepository
                           		  ->orWhere('login_username', 'like', "%$searchKey%");
                 		});
 	                })
+	                ->with(['folder' => function($query) {
+                        	$query->select('id', 'name');
+                       }, ])
 	                ->orderBy('id','desc')
 					->paginate($perPage);
 	}
