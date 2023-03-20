@@ -14,7 +14,7 @@
             type="button"
             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
             data-modal-hide="small-modal"
-            onclick="closeFolderModal()"
+            onclick="closeItemImportModal()"
           >
             <svg
               aria-hidden="true"
@@ -40,7 +40,12 @@
                 <label
                   class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                   for="grid-first-name"
-                >Select the import file ( Example CSV format: )</label>
+                >Select the import file</label>
+                <div>
+                  ( Example CSV format:
+                  <a href="/example-csv" target="_blank">Click here</a> )
+                </div>
+
                 <input
                   class="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="grid-first-name"
@@ -66,7 +71,7 @@
             data-modal-hide="small-modal"
             type="button"
             class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
-            onclick="closeFolderModal()"
+            onclick="closeItemImportModal()"
           >Cancel</button>
         </div>
       </div>

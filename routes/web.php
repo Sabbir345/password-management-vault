@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\Dashboard\DashboardController;
-use App\Http\Controllers\Frontend\Dashboard\ItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,18 +22,11 @@ Route::group([
         'middleware' => 'auth'
     ], function () {
     
-    // include_once 'User/dashboard.php';
+    
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/get-folder', [DashboardController::class, 'getFolders']);
-    Route::post('/folder', [DashboardController::class, 'store'])->name('folder.store');
-    // Route::post('/folder-update', [DashboardController::class, 'folderUpdate'])->name('folder.update');
-    // Route::delete('/folder-delete', [DashboardController::class, 'folderDelete'])->name('folder.delete');
 
-    // Create Item
-    Route::post('/item' , [ItemController::class, 'store'])->name('item.store');
-    Route::get('/get-items' , [ItemController::class, 'getItems']);
-    Route::get('/items-export',[ItemController::class, 'itemExport']);
-    Route::post('/items-import',[ItemController::class, 'itemImport']);
+    include_once 'frontend/folder.php';
+    include_once 'frontend/items.php';
 });
 
 require __DIR__.'/auth.php';

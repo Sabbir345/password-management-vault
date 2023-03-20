@@ -1,0 +1,3 @@
+folder,type,name,notes,login_uri,login_username,login_password
+Test,login,Gmail,Personal account,"[{uri: github.com},{uri: https://vault.bitwarden.com/}]",Sabbir345,123456
+Authlab,login,Office,Office account,,,

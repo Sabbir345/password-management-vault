@@ -75,6 +75,7 @@
                       <li v-for="(data, index) in folders" :key="index">
                         <a
                           class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                          @click="handleFolderItems(data.id)"
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -118,8 +119,8 @@
                   </li>
                   <li>
                     <a
-                      href="#"
                       class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                      onclick="openItemExportModal()"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -226,6 +227,7 @@
         <create-item-modal :item="loginItem" :folders="folders" @closeItemModal="closeModal" />
         <manage-folder :item="folderItem" @closeFolderModal="closeModal" />
         <item-import @closeItemImportModal="closeModal" />
+        <item-export @closeItemExportModal="closeModal" />
       </div>
     </div>
   </div>
@@ -238,7 +240,7 @@ import Tools from "./component/Tools";
 import CreateItemModal from "./component/CreateItemModal";
 import ManageFolder from "./component/ManageFolder";
 import ItemImport from "./component/ItemImport";
-
+import ItemExport from "./component/ItemExport";
 export default {
   components: {
     Home,
@@ -246,7 +248,8 @@ export default {
     Tools,
     CreateItemModal,
     ManageFolder,
-    ItemImport
+    ItemImport,
+    ItemExport
   },
   data() {
     return {
@@ -256,6 +259,7 @@ export default {
       folders: [],
       items: [],
       search: "",
+      folderSearch: "",
       folderItem: {
         name: ""
       },
@@ -266,6 +270,7 @@ export default {
         login_username: "",
         name: "",
         notes: "",
+        
         uris: [
           {
             uri: ""
@@ -275,7 +280,7 @@ export default {
       pagination: {},
       current: 1,
       pageSize: "",
-      perPage: 12,
+      perPage: 10,
       totalData: 0
     };
   },
@@ -284,6 +289,8 @@ export default {
   },
   methods: {
     setMenu(layout) {
+      this.search = ''
+      this.folderSearch = ''
       this.activeMenu = layout;
       this.getItemFolder();
     },
@@ -313,7 +320,7 @@ export default {
     },
     getItems(nextPage = null) {
       let url = `/get-items?per_page=${this.perPage}`;
-
+      
       if (nextPage) {
         url += `&page=${nextPage}`;
       }
@@ -321,11 +328,14 @@ export default {
       if (this.search.length) {
         url += `&search=${this.search}`;
       }
+      
+      if (this.folderSearch) {
+        url += `&folderSearch=${this.folderSearch}`;
+      }
 
       axios
         .get(url)
         .then(response => {
-          // console.log()
           this.items = response.data.items.data;
           this.pagination = response.data.items;
           this.pageSize =
@@ -360,6 +370,10 @@ export default {
       this.indexValueForPagination =
         (next + this.indexValueForPagination) * this.perPage - this.perPage;
       this.getItems(next);
+    },
+    handleFolderItems(folderId){
+      this.folderSearch = folderId
+      this.getItems()
     }
   }
 };

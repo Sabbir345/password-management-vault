@@ -10,7 +10,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Http\Controllers\Controller;
 use App\Repositories\ItemRepository;
+use App\Exports\ItemExport;
 use App\Import\ItemImport;
+use Illuminate\Support\Facades\Response;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ItemController extends Controller
@@ -52,9 +54,10 @@ class ItemController extends Controller
 	public function getItems()
 	{
 		$searchKey = $this->request->search;
+        $folderSearch = $this->request->folderSearch;
         $perPage = $this->request->per_page;
 		try {
-            $response = $this->repository->getAllItems($searchKey,$perPage,Auth::user()->id);
+            $response = $this->repository->getAllItems($searchKey,$folderSearch,$perPage,Auth::user()->id);
             $message = "success";
     		$status = true;
         } catch (\Exception $exception) {
@@ -75,8 +78,9 @@ class ItemController extends Controller
 	{
 		try {
             $response = $this->repository->getExportItems(Auth::user()->id);
-            $message = "success";
-            $status = true;
+            $file_name = 'items' . time() . '.csv';
+            return Excel::download(new ItemExport($response), $file_name);
+
         } catch (\Exception $exception) {
             $status = false;
             $message = $this->res_message;
@@ -94,5 +98,10 @@ class ItemController extends Controller
                 'message' => "Successfully file imported",
           ]);
         }
+    }
+
+    public function exampleCSV()
+    {
+        return response()->download(public_path('assets/items1679237011.csv'));
     }
 }

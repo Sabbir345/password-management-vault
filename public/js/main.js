@@ -56,3 +56,22 @@ window.onclick = function (event) {
     manageItemImportModal.classList.add('hidden')
   }
 }
+// ===== create new item modal
+var manageItemExportModal = document.querySelector('.itemExport')
+
+// openItemModal for create new
+function openItemExportModal() {
+  manageItemExportModal.classList.remove('hidden')
+}
+openItemExportModal()
+// closeItemModal for create new
+function closeItemExportModal() {
+  manageItemExportModal.classList.add('hidden')
+}
+closeItemExportModal()
+
+window.onclick = function (event) {
+  if (event.target === manageItemExportModal) {
+    manageItemExportModal.classList.add('hidden')
+  }
+}
