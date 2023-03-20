@@ -1,64 +1,57 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Password Management Vault
+## Overview
 
-## About Laravel
+The Password Management Vault is a web-based application built using Laravel and Vue.js that provides a secure and convenient way to store and manage passwords. The application allows users to create folders to organize their passwords, search for data by name, username and folder. Generate strong passwords, and import and export password data.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Tech Stack
+The Password Management Vault is built using the following technologies:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Laravel version 8.75
+- Vue.js version ^2.7.14
+- Maatwebsite/Excel 3.1 package for import and export functionality
+- Ant Design for pagination and design work
+- Laravel/Breeze for authentication
+- Tailwind CSS for design work
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Installation
+To install the Password Management Vault, follow these steps:
 
-## Learning Laravel
+1 . Clone the repository using **git clone.**
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+2 . Install the necessary dependencies by running **composer install** and **npm install.**
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+3 . Copy the **.env.example** file to **.env** and configure the database settings.
 
-## Laravel Sponsors
+4 . Generate an application key by running **php artisan key:generate.**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+5 . Run the database migrations using **php artisan migrate**.
 
-### Premium Partners
+6 . Build the front-end assets using **npm run dev** or **npm run prod**.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+7 . Start the development server using **php artisan serve**.
 
-## Contributing
+## Features
+#### User Authentication
+The application uses Laravel/Breeze for user authentication. Users can create an account and log in to access their password data.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+#### Folder Management
+Users can create folders to organize their password data. They can view and manage their folders on the Folder menu dropdown.
 
-## Code of Conduct
+#### Vault Management
+Users can store and manage secret credentials (e.g. API keys, access tokens, SSH keys) on the Password Management Vault page. They can also search for passwords data by name, username and folder.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+#### Password Generator/ Tools
+The Password Generator is a tool that allows users to generate strong passwords based on their preferences. Users can specify the length of the password and choose to include uppercase letters, lowercase letters, numbers, and special characters. Once the preferences are set, the Password Generator will create a new password that meets those criteria.
 
-## Security Vulnerabilities
+#### Import and Export
+Users can import and export password data to and from CSV files using the Maatwebsite/Excel package.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## License
+## Usage
+To use the Password Management Vault, users must first create an account and log in using Laravel/Breeze authentication. Once logged in, users can create folders to organize their passwords. Passwords can be added to folders manually or imported from a CSV file using the Maatwebsite/Excel package. Users can also search for passwords by name.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The Password Generator tool can be accessed from the main menu. Users can specify the length and complexity of the generated passwords.
+
+### Conclusion
+The Password Management Vault is a secure and convenient way to manage passwords. Its use of Laravel, Vue.js, and various packages and tools make it a robust and feature-rich application.

@@ -38,7 +38,7 @@
                       type="button"
                       class="flex items-center justify-between w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                     >
-                      <span class="flex w-90" @click="isFolderMenuOpen = !isFolderMenuOpen">
+                      <span class="flex w-[200px]" @click="isFolderMenuOpen = !isFolderMenuOpen">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"
@@ -72,7 +72,7 @@
                       </span>
                     </button>
                     <ul v-show="isFolderMenuOpen" id="dropdown-example" class="py-2 space-y-2">
-                      <li v-for="(data, index) in folders" :key="index">
+                      <li v-for="(data, index) in folders" :key="index" class="flex">
                         <a
                           class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                           @click="handleFolderItems(data.id)"
@@ -137,7 +137,7 @@
                           d="M2.5 0A2.5 2.5 0 0 0 0 2.5v11A2.5 2.5 0 0 0 2.5 16h11a2.5 2.5 0 0 0 2.5-2.5v-11A2.5 2.5 0 0 0 13.5 0h-11ZM1 2.5A1.5 1.5 0 0 1 2.5 1h11A1.5 1.5 0 0 1 15 2.5v11a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 13.5v-11Z"
                         />
                       </svg>
-                      <span class="ml-3">Export</span>
+                      <span class="ml-3">Export vault</span>
                     </a>
                   </li>
                   <li>
@@ -160,7 +160,7 @@
                           d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"
                         />
                       </svg>
-                      <span class="ml-3">Import</span>
+                      <span class="ml-3">Import data</span>
                     </a>
                   </li>
                   <li>
@@ -260,6 +260,7 @@ export default {
       items: [],
       search: "",
       folderSearch: "",
+      singleFolderInfo: {},
       folderItem: {
         name: ""
       },
@@ -270,7 +271,7 @@ export default {
         login_username: "",
         name: "",
         notes: "",
-        
+
         uris: [
           {
             uri: ""
@@ -289,8 +290,8 @@ export default {
   },
   methods: {
     setMenu(layout) {
-      this.search = ''
-      this.folderSearch = ''
+      this.search = "";
+      this.folderSearch = "";
       this.activeMenu = layout;
       this.getItemFolder();
     },
@@ -320,7 +321,7 @@ export default {
     },
     getItems(nextPage = null) {
       let url = `/get-items?per_page=${this.perPage}`;
-      
+
       if (nextPage) {
         url += `&page=${nextPage}`;
       }
@@ -328,7 +329,7 @@ export default {
       if (this.search.length) {
         url += `&search=${this.search}`;
       }
-      
+
       if (this.folderSearch) {
         url += `&folderSearch=${this.folderSearch}`;
       }
@@ -371,9 +372,18 @@ export default {
         (next + this.indexValueForPagination) * this.perPage - this.perPage;
       this.getItems(next);
     },
-    handleFolderItems(folderId){
-      this.folderSearch = folderId
-      this.getItems()
+    handleFolderItems(folderId) {
+      this.folderSearch = folderId;
+      this.getItems();
+    },
+    handleFolderEdit(data) {
+      // this.folderItem = "";
+      // this.folderItem = data;
+      // console.log(this.folderItem);
+      // if (this.folderItem.name) {
+      //   const folder = document.querySelector(".createFolderModal");
+      //   folder.classList.remove("hidden");
+      // }
     }
   }
 };

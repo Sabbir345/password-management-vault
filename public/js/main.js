@@ -1,5 +1,5 @@
 // ===== create new modal
-var manageFolderModal = document.querySelector('.createFolderModal')
+const manageFolderModal = document.querySelector('.createFolderModal')
 
 // openFolderModal for create new
 function openFolderModal() {
@@ -19,7 +19,7 @@ window.onclick = function (event) {
 }
 
 // ===== create new item modal
-var manageItemModal = document.querySelector('.createItemModal')
+const manageItemModal = document.querySelector('.createItemModal')
 
 // openItemModal for create new
 function openItemModal() {
@@ -38,7 +38,7 @@ window.onclick = function (event) {
   }
 }
 // ===== create new item modal
-var manageItemImportModal = document.querySelector('.itemImport')
+const manageItemImportModal = document.querySelector('.itemImport')
 
 // openItemModal for create new
 function openItemImportModal() {
@@ -57,7 +57,7 @@ window.onclick = function (event) {
   }
 }
 // ===== create new item modal
-var manageItemExportModal = document.querySelector('.itemExport')
+const manageItemExportModal = document.querySelector('.itemExport')
 
 // openItemModal for create new
 function openItemExportModal() {

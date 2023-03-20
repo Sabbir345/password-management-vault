@@ -40,11 +40,9 @@
                 <p class="pb-3 text-base font-bold">Export your data in CSV format.</p>
 
                 <button
-                  class="inline-block px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-100 focus:outline-none focus:shadow-outline cursor-pointer"
+                  class="inline-block px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 bg-indigo-100 focus:outline-none focus:shadow-outline cursor-pointer"
                   @click="handleDownload"
                 >Download</button>
-
-                
               </div>
             </div>
           </form>
@@ -77,14 +75,6 @@ export default {
       axios
         .get("/items-export", { responseType: "blob" })
         .then(response => {
-          console.log(response);
-          // const blob = new Blob([response.data], { type: 'text/csv;charset=utf-8' });
-          // const link = document.createElement("a");
-          // link.href = window.URL.createObjectURL(blob);
-          // link.download = "items.csv";
-          // link.click();
-          //     this.$message.success(response.data.message);
-          //   this.$emit("closeItemExportModal", "itemExport");
           const filename = response.headers["content-disposition"].split(
             "="
           )[1];
@@ -94,6 +84,8 @@ export default {
           link.setAttribute("download", filename);
           document.body.appendChild(link);
           link.click();
+          this.$message.success("Vault data exported");
+          this.$emit("closeItemExportModal", "itemExport");
         })
         .catch(error => {
           if (error.response.data.code === 422) {

@@ -26,7 +26,7 @@
             class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
           >Password</label>
         </div>
-        <div class="flex items-center mr-4">
+        <!-- <div class="flex items-center mr-4">
           <input
             id="inline-2-radio"
             v-model="passwordType"
@@ -39,7 +39,7 @@
             for="inline-2-radio"
             class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
           >Passphrase</label>
-        </div>
+        </div> -->
       </div>
 
       <div class="pt-4">
@@ -89,12 +89,14 @@
 
           <div class="px-3 w-full">
             <div v-for="(type,index) in characters" :key="index">
-              <input
-                type="checkbox"
-                v-bind:checked="type.checked"
-                v-on:click="type.checked = !type.checked"
-              />
-              <label for>{{type.name}}</label>
+              <label>
+                <input
+                  type="checkbox"
+                  v-bind:checked="type.checked"
+                  v-on:click="type.checked = !type.checked"
+                />
+                {{type.name}}
+              </label>
               <br />
             </div>
           </div>
