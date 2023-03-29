@@ -28,19 +28,23 @@ class ItemController extends Controller
         $this->repository = $repository;
     }
 
-	public function store(Request $request)
+	public function store()
 	{
 		$this->validate($this->request,[
          	'name'   => 'required',
         ]);
 
+        DB::beginTransaction();
+
         try {
             $response = $this->repository->itemStore($this->request,Auth::user()->id);
             $status = true;
             $message = "Successfully item created";
-        } catch (\Exception $exception) {
-        	$status = false;
+            DB::commit();
+        } catch (\Exception $e) {
+            $status = false;
             $message = $this->res_message;
+            DB::rollBack();
         }
         
         if($this->request->wantsJson()) {
@@ -51,13 +55,41 @@ class ItemController extends Controller
         }
 	}
 
+    public function itemUpdate()
+    {
+        $this->validate($this->request,[
+            'name'   => 'required',
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+            $response = $this->repository->itemUpdate($this->request,Auth::user()->id);
+            $status = true;
+            $message = "Successfully item updated";
+            DB::commit();
+        } catch (\Exception $e) {
+            $status = false;
+            $message = $this->res_message;
+            DB::rollBack();
+        }
+        
+        if($this->request->wantsJson()) {
+            return response()->json([
+                'status'  => $status,
+                'message'     => $message
+          ]);
+        }
+    }
+
 	public function getItems()
 	{
 		$searchKey = $this->request->search;
         $folderSearch = $this->request->folderSearch;
+        $categoryIds = $this->request->categoryIds ? array_map('intval', str_getcsv(str_replace(['[', ']'], '', $this->request->categoryIds))) : null;
         $perPage = $this->request->per_page;
 		try {
-            $response = $this->repository->getAllItems($searchKey,$folderSearch,$perPage,Auth::user()->id);
+            $response = $this->repository->getAllItems($searchKey,$folderSearch,$perPage,Auth::user()->id,$categoryIds);
             $message = "success";
     		$status = true;
         } catch (\Exception $exception) {
@@ -69,7 +101,8 @@ class ItemController extends Controller
             return response()->json([
                 'status'  => $status,
                 'message' => $message,
-                'items' => $response
+                'items' => $response,
+                'dsd' => $this->request->categoryIds
           ]);
         }
 	}
@@ -103,5 +136,25 @@ class ItemController extends Controller
     public function exampleCSV()
     {
         return response()->download(public_path('assets/items1679237011.csv'));
+    }
+
+    public function itemDelete()
+    {
+        try {
+            $response = $this->repository->itemSoftDelete($this->request->id,Auth::user()->id);
+            $message = "Successfully item deleted";
+            $status = true;
+        } catch (\Exception $exception) {
+            $status = false;
+            $message = $this->res_message;
+            $response = [];
+        }
+
+         if($this->request->wantsJson()) {
+            return response()->json([
+                'status'  => $status,
+                'message' => $message,
+          ]);
+        }
     }
 }

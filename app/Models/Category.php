@@ -10,4 +10,9 @@ class Category extends Model
     use HasFactory;
 
     protected $fillable = ['user_id','name'];
+
+    public function items()
+    {
+        return $this->belongsToMany(Item::class, 'category_item');
+    }
 }

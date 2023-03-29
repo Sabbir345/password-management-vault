@@ -1,3 +1,2 @@
-folder,type,name,notes,login_uri,login_username,login_password
-Test,login,Gmail,Personal account,"[{uri: github.com},{uri: https://vault.bitwarden.com/}]",Sabbir345,123456
-Authlab,login,Office,Office account,,,
+folder,type,name,notes,login_uri,login_username,login_password,category
+Personal,login,Facebook,Its note,"leetcode.com,https://www.youtube.com/",Sabbir345,12345678,"Student,Teacher,Professor"

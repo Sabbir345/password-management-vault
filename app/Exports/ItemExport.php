@@ -26,21 +26,6 @@ class ItemExport implements FromCollection,WithHeadings
         return collect($this->response);
     }
 
-    // public function map($row): array
-    // {
-       
-    //     $data = [
-    //       'folder'=>$row['folder'],
-    //       'type'=>$row['type'],
-    //       'name'=>$row['name'],
-    //       'notes'=>$row['notes'],
-    //       'login_uri'=>$row['login_uri'],
-    //       'login_username'=>$row['login_username'],
-    //     ];
-    //    // dd($data);
-    //     return $data->collect();
-    // }
-
     public function headings(): array
     {
         return [
@@ -50,6 +35,8 @@ class ItemExport implements FromCollection,WithHeadings
             'notes',
             'login_uri',
             'login_username',
+            'login_password',
+            'category'
         ];
     }
     

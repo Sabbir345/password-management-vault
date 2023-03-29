@@ -2,7 +2,7 @@
 # Password Management Vault
 ## Overview
 
-The Password Management Vault is a web-based application built using Laravel and Vue.js that provides a secure and convenient way to store and manage passwords. The application allows users to create categories, folders to organize their passwords, search for data by name, username and folder. Generate strong passwords, and import and export password data.
+The Password Management Vault is a web-based application built using Laravel and Vue.js that provides a secure and convenient way to store and manage passwords. The application allows users to create categories, folders to organize their passwords, search for data by name, username, folder and categories. Generate strong passwords, and import and export password data.
 
 ## Tech Stack
 The Password Management Vault is built using the following technologies:
@@ -36,10 +36,10 @@ To install the Password Management Vault, follow these steps:
 The application uses Laravel/Breeze for user authentication. Users can create an account and log in to access their password data.
 
 #### Folder Management
-Users can create folders to organize their password data. They can view and manage their folders on the Folder menu dropdown.
+Users can create folders to organize their password data. They can view , edit , delete and manage their folders on the Folder menu dropdown.
 
 #### Vault Management
-Users can store and manage secret credentials (e.g. API keys, access tokens, SSH keys) on the Password Management Vault page. They can also search for passwords data by name, username and folder.
+Users can store and manage secret credentials (e.g. API keys, access tokens, SSH keys) on the Password Management Vault page. They can also search for passwords data by name, username and folder and categories.
 
 #### Password Generator/ Tools
 The Password Generator is a tool that allows users to generate strong passwords based on their preferences. Users can specify the length of the password and choose to include uppercase letters, lowercase letters, numbers, and special characters. Once the preferences are set, the Password Generator will create a new password that meets those criteria.
@@ -48,7 +48,7 @@ The Password Generator is a tool that allows users to generate strong passwords 
 Users can import and export password data to and from CSV files using the Maatwebsite/Excel package.
 
 #### Category Management
-Users can create category to organize their password data. They can view categories on the Category menu dropdown.
+Users can create category to organize their password data. They can view,edit and delete categories on the Category menu dropdown.
 
 ## Usage
 To use the Password Management Vault, users must first create an account and log in using Laravel/Breeze authentication. Once logged in, users can create folders to organize their passwords. Passwords can be added to folders manually or imported from a CSV file using the Maatwebsite/Excel package. Users can also search for passwords by name.

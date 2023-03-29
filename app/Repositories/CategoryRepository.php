@@ -13,9 +13,14 @@ class CategoryRepository
 {
 	public function categoryCreate($data,$userId)
 	{
-		$item = new Category();
+        if(!$data['id']){
+			$item = new Category();
+			$item->user_id = $userId;
+		}else{
+			$item = Category::findOrFail($data['id']);
+		}
+		
         $item->name = $data['name'];
-        $item->user_id = $userId;
         $item->save();
 
         return $item;
@@ -24,5 +29,13 @@ class CategoryRepository
 	public function getAllCategory($userId)
 	{
 		return Category::where('user_id',$userId)->where('is_deleted',0)->get();
+	}
+
+	public function categorySoftDelete($id,$userId)
+	{
+		$category = Category::findOrFail($id);
+		$category->is_deleted = 1;
+		$category->save();
+		return;
 	}
 }

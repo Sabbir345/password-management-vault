@@ -5,5 +5,6 @@ use App\Http\Controllers\Frontend\Dashboard\DashboardController;
 
 	Route::get('/get-folder', [DashboardController::class, 'getFolders']);
     Route::post('/folder', [DashboardController::class, 'store'])->name('folder.store');
+    Route::post('/folder-delete', [DashboardController::class, 'folderDelete'])->name('folder.delete');
 
 ?>

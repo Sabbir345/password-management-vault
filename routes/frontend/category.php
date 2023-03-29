@@ -5,6 +5,5 @@ use App\Http\Controllers\Frontend\Dashboard\DashboardController;
 
 	Route::get('/get-categories', [DashboardController::class, 'getCategories']);
     Route::post('/category', [DashboardController::class, 'categoryStore'])->name('category.store');
-    Route::post('/search-category', [DashboardController::class, 'searchCategory'])->name('search.category');
-
+    Route::post('/category-delete', [DashboardController::class, 'categoryDelete'])->name('category.delete');
 ?>

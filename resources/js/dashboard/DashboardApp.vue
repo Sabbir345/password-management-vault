@@ -4,7 +4,7 @@
       <Nav />
     </div>
     <div class="bg-indigo-100 overflow-hidden sticky top-0">
-      <div class="max-w-4xl px-4 mx-auto">
+      <div class="max-w-5xl px-4 mx-auto">
         <div class="flex">
           <div class="sticky pt-4">
             <aside
@@ -56,7 +56,7 @@
                           sidebar-toggle-item
                         >Folders</span>
                       </span>
-                      <span onclick="openFolderModal()" class="text-end">
+                      <span @click="isFolderModalOpen = true" class="text-end">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"
@@ -71,7 +71,7 @@
                         </svg>
                       </span>
                     </button>
-                    <ul v-show="isFolderMenuOpen" id="dropdown-example" class="py-2 space-y-2">
+                    <ul v-show="isFolderMenuOpen" id="dropdown-example" class="py-2 space-y-2 max-h-[250px] overflow-y-auto">
                       <li v-for="(data, index) in folders" :key="index" class="flex">
                         <a
                           class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
@@ -91,6 +91,25 @@
                           </svg>
                           {{ data.name }}
                         </a>
+                        <span class="flex items-center">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            class="bi bi-pencil-square cursor-pointer"
+                            viewBox="0 0 16 16"
+                            @click="handleFolderEditModal(data)"
+                          >
+                            <path
+                              d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
+                            />
+                            <path
+                              fill-rule="evenodd"
+                              d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+                            />
+                          </svg>
+                        </span>
                       </li>
                     </ul>
                   </li>
@@ -120,7 +139,7 @@
                           sidebar-toggle-item
                         >Category</span>
                       </span>
-                      <span onclick="openCategoryModal()" class="text-end">
+                      <span @click="isCategoryModalOpen = true" class="text-end">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"
@@ -135,23 +154,40 @@
                         </svg>
                       </span>
                     </button>
-                    <ul v-show="isCategoryMenuOpen" id="dropdown-example" class="py-2 space-y-2">
-                      <li v-for="(data, index) in categories" :key="index" class="flex">
-                        <a
-                          class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                        >
+                    <ul v-show="isCategoryMenuOpen" id="dropdown-example" class="py-2 space-y-2 max-h-[250px] overflow-y-auto">
+                      <li
+                        v-for="(option, index) in categories"
+                        :key="index"
+                        class="flex items-center justify-between w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                      >
+                        <label class="cursor-pointer">
+                          <input
+                            type="checkbox"
+                            :value="option.id"
+                            v-model="selectedCategory"
+                            class="mr-4"
+                          />
+                          {{ option.name }}
+                        </label>
+                        <span class="text-end">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
                             height="16"
                             fill="currentColor"
-                            class="bi bi-dash pr-2 w-6 h-6"
+                            class="bi bi-pencil-square cursor-pointer"
                             viewBox="0 0 16 16"
+                            @click="handleCategoryEditModal(option)"
                           >
-                            <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
+                            <path
+                              d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
+                            />
+                            <path
+                              fill-rule="evenodd"
+                              d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+                            />
                           </svg>
-                          {{ data.name }}
-                        </a>
+                        </span>
                       </li>
                     </ul>
                   </li>
@@ -255,10 +291,10 @@
           </div>
 
           <div class="p-4 top-0">
-            <div class="w-[39rem] h-screen bg-gray-100">
+            <div class="w-[48rem] h-screen bg-gray-100">
               <div class="mx-auto sm:px-6 lg:px-8">
                 <template v-if="activeMenu === 'home'">
-                  <home :items="items" @getNewItem="handleNewItems" />
+                  <home :items="items" @getNewItem="handleNewItems" @itemModal="setEditModalData" />
 
                   <a-pagination
                     v-if="pagination.last_page > 1"
@@ -285,9 +321,21 @@
         </div>
 
         <!-- Main modal -->
-        <create-item-modal :item="loginItem" :folders="folders" :categories="categories" @closeItemModal="closeModal" />
-        <manage-folder :item="folderItem" @closeFolderModal="closeModal" />
-        <manage-category :item="categoryItem" @closeCategoryModal="closeModal" />
+        <div v-if="isItemModalOpen">
+          <create-item-modal
+            :item="loginItem"
+            :folders="folders"
+            :categories="categories"
+            @closeItemModal="closeModal"
+          />
+        </div>
+        <div v-if="isFolderModalOpen">
+          <manage-folder :item="folderItem" @closeFolderModal="closeModal" />
+        </div>
+        <div v-if="isCategoryModalOpen">
+          <manage-category :item="categoryItem" @closeCategoryModal="closeModal" />
+        </div>
+
         <item-import @closeItemImportModal="closeModal" />
         <item-export @closeItemExportModal="closeModal" />
       </div>
@@ -318,9 +366,13 @@ export default {
   data() {
     return {
       activeMenu: "home",
+      isItemModalOpen: false,
       isFolderMenuOpen: false,
       isOpenFileImportModal: false,
+      isFolderModalOpen: false,
+      isCategoryModalOpen: false,
       isCategoryMenuOpen: false,
+      selectedCategory: [],
       folders: [],
       categories: [],
       items: [],
@@ -333,29 +385,21 @@ export default {
       categoryItem: {
         name: ""
       },
-      loginItem: {
-        login_type: 1,
-        folder_id: "",
-        login_password: "",
-        login_username: "",
-        name: "",
-        notes: "",
-
-        uris: [
-          {
-            uri: ""
-          }
-        ]
-      },
+      loginItem: {},
       pagination: {},
       current: 1,
       pageSize: "",
-      perPage: 10,
+      perPage: 8,
       totalData: 0
     };
   },
   mounted() {
     this.getItemFolder();
+  },
+  watch: {
+    selectedCategory() {
+      this.getItems();
+    }
   },
   methods: {
     setMenu(layout) {
@@ -368,6 +412,9 @@ export default {
       const modal = document.querySelector(`.${className}`);
       modal.classList.add("hidden");
       this.getItemFolder();
+      this.isItemModalOpen = false;
+      this.isFolderModalOpen = false;
+      this.isCategoryModalOpen = false;
     },
     getFolders() {
       axios
@@ -401,6 +448,10 @@ export default {
 
       if (this.folderSearch) {
         url += `&folderSearch=${this.folderSearch}`;
+      }
+
+      if (this.selectedCategory.length) {
+        url += `&categoryIds=${this.selectedCategory}`;
       }
 
       axios
@@ -464,6 +515,18 @@ export default {
             this.$message.error(error.response.data.message);
           }
         });
+    },
+    setEditModalData(data) {
+      this.loginItem = { ...data };
+      this.isItemModalOpen = true;
+    },
+    handleFolderEditModal(data) {
+      this.folderItem = { ...data };
+      this.isFolderModalOpen = true;
+    },
+    handleCategoryEditModal(data) {
+      this.categoryItem = { ...data };
+      this.isCategoryModalOpen = true;
     }
   }
 };

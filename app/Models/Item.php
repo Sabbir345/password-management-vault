@@ -15,4 +15,9 @@ class Item extends Model
     {
         return $this->belongsTo(Folder::class);
     }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'category_item');
+    }
 }

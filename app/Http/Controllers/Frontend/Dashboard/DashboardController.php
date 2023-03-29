@@ -38,7 +38,7 @@ class DashboardController extends Controller
         try {
             $response = $this->repository->folderStore($this->request,Auth::user()->id);
             $status = true;
-            $message = "Successfully folder created";
+            $message = $this->request->id ? "Successfully folder updated" : "Successfully folder created";
         } catch (\Exception $exception) {
         	$status = false;
             $message = "Internal server error";
@@ -72,6 +72,42 @@ class DashboardController extends Controller
         }
 	}
 
+    public function folderDelete()
+    {
+        try {
+            $response = $this->repository->folderSoftDelete($this->request->id,Auth::user()->id);
+            $message = "Successfully deleted";
+            $status = true;
+        } catch (\Exception $exception) {
+            $status = false;
+            $message = "Internal server error";
+        }
+        if($this->request->wantsJson()) {
+            return response()->json([
+                'status'  => $status,
+                'message' => $message,
+          ]);
+        }
+    }
+
+    public function categoryDelete()
+    {
+        try {
+            $response = $this->categoryRepository->categorySoftDelete($this->request->id,Auth::user()->id);
+            $message = "Successfully deleted";
+            $status = true;
+        } catch (\Exception $exception) {
+            $status = false;
+            $message = "Internal server error";
+        }
+        if($this->request->wantsJson()) {
+            return response()->json([
+                'status'  => $status,
+                'message' => $message,
+          ]);
+        }
+    }
+
 	public function getCategories()
 	{
 		try {
@@ -101,7 +137,7 @@ class DashboardController extends Controller
         try {
             $response = $this->categoryRepository->categoryCreate($this->request,Auth::user()->id);
             $status = true;
-            $message = "Successfully category created";
+            $message = $this->request->id ? "Successfully category updated" : "Successfully category created";
         } catch (\Exception $exception) {
             $status = false;
             $message = "Internal server error";

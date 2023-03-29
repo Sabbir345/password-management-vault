@@ -23,7 +23,6 @@ class CreateItemsTable extends Migration
             $table->string('login_username')->nullable();
             $table->string('login_password')->nullable();
             $table->json('uri')->nullable();
-            $table->json('categories')->nullable();
             $table->text('notes')->nullable();
             $table->tinyInteger('is_deleted')->default(0);
             $table->timestamps();
